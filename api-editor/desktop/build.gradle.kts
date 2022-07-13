@@ -7,7 +7,9 @@ val javaVersion: String by project
 // Plugins -------------------------------------------------------------------------------------------------------------
 
 plugins {
+    `java-test-fixtures`
     kotlin("jvm")
+    kotlin("plugin.serialization")
     id("org.jetbrains.compose")
 }
 
@@ -23,10 +25,10 @@ tasks.withType<KotlinCompile> {
 
 compose.desktop {
     application {
-        mainClass = "com.larsreimann.python_api_editor.MainKt"
+        mainClass = "com.larsreimann.apiEditor.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "python-api-editor"
+            packageName = "api-editor"
             packageVersion = "1.0.0"
         }
     }
@@ -36,12 +38,21 @@ compose.desktop {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    implementation("com.larsreimann:modeling-core:3.1.1")
     implementation("org.jetbrains.compose.components:components-splitpane:1.1.1")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+
+    testFixturesImplementation(compose.desktop.currentOs)
 
     testImplementation(kotlin("test"))
     testImplementation("io.kotest:kotest-assertions-core-jvm:5.3.2")
+    testImplementation("io.kotest:kotest-framework-datatest:5.3.2")
+    testImplementation("io.kotest:kotest-property:5.3.2")
+    testImplementation("io.kotest:kotest-runner-junit5:5.3.2")
     testImplementation("io.mockk:mockk:1.12.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
 }
 
 // Tasks ---------------------------------------------------------------------------------------------------------------

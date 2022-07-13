@@ -1,0 +1,125 @@
+{
+    "$discriminator": "Api@v2",
+    "distribution": "test-distribution",
+    "version": "1.0.0",
+    "packageName": "test_package",
+    "modules": [
+        {
+            "id": "test_package/test_module",
+            "name": "test_module",
+            "imports": [
+                {
+                    "moduleName": "test_module_2",
+                    "alias": "tm2"
+                }
+            ],
+            "fromImports": [
+                {
+                    "moduleName": "test_module_2",
+                    "declarationName": "TestClass2",
+                    "alias": "TC2"
+                }
+            ],
+            "classIds": ["test_package/test_module/TestClass"],
+            "functionIds": ["test_package/test_module/test_function"]
+        }
+    ],
+    "classes": [
+        {
+            "id": "test_package/test_module/TestClass",
+            "name": "TestClass",
+            "decorators": ["test_decorator"],
+            "superclassIds": ["test_package/test_module_2/TestClass2"],
+            "documentation": {
+                "description": "TestClass description"
+            },
+            "methodIds": ["test_package/test_module/TestClass/test_method"]
+        }
+    ],
+    "functions": [
+        {
+            "id": "test_package/test_module/test_function",
+            "name": "test_function",
+            "decorators": ["test_decorator"],
+            "documentation": {
+                "description": "test_function description"
+            },
+            "parameterIds": ["test_package/test_module/test_function/test_parameter"],
+            "resultIds": ["test_package/test_module/test_function/test_result"]
+        },
+        {
+            "id": "test_package/test_module/TestClass/test_method",
+            "name": "test_method",
+            "decorators": ["test_decorator"],
+            "documentation": {
+                "description": "test_method description"
+            },
+            "parameterIds": ["test_package/test_module/TestClass/test_method/test_parameter_2"],
+            "resultIds": ["test_package/test_module/TestClass/test_method/test_result_2"]
+        }
+    ],
+    "parameters": [
+        {
+            "id": "test_package/test_module/test_function/test_parameter",
+            "name": "test_parameter",
+            "type": {
+                "$discriminator": "NamedType",
+                "name": "str"
+            },
+            "defaultValue": {
+                "$discriminator": "StringLiteral",
+                "value": "test_default_value"
+            },
+            "assignment": "PositionalOnly",
+            "documentation": {
+                "type": "str",
+                "defaultValue": "'test_default_value'",
+                "description": "test_parameter description"
+            }
+        },
+        {
+            "id": "test_package/test_module/TestClass/test_method/test_parameter_2",
+            "name": "test_parameter_2",
+            "type": {
+                "$discriminator": "NamedType",
+                "name": "int"
+            },
+            "defaultValue": {
+                "$discriminator": "IntLiteral",
+                "value": 1
+            },
+            "assignment": "PositionalOrKeyword",
+            "documentation": {
+                "type": "int",
+                "defaultValue": "1",
+                "description": "test_parameter_2 description"
+            }
+        }
+    ],
+    "results": [
+        {
+            "id": "test_package/test_module/test_function/test_result",
+            "name": "test_result",
+            "type": {
+                "$discriminator": "NamedType",
+                "name": "str"
+            },
+            "documentation": {
+                "type": "str",
+                "description": "test_result description"
+            }
+        },
+        {
+            "id": "test_package/test_module/TestClass/test_method/test_result_2",
+            "name": "test_result_2",
+            "type": {
+                "$discriminator": "NamedType",
+                "name": "int"
+            },
+            "documentation": {
+                "type": "int",
+                "description": "test_result_2 description"
+            }
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "$discriminator": "Usages@v2",
+    "moduleCounts": {
+        "test/test_module": 2
+    },
+    "classCounts": {
+        "test/test_module/TestClass": 1
+    },
+    "functionCounts": {
+        "test/test_module/test_function": 1
+    },
+    "parameterCounts": {
+        "test/test_module/test_function/test_parameter": 1
+    },
+    "valueCounts": {
+        "test/test_module/test_function/test_parameter": {
+            "test_value": 1
+        }
+    }
+}

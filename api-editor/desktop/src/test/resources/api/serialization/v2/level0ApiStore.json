@@ -1,0 +1,6 @@
+{
+    "$discriminator": "Api@v2",
+    "distribution": "test-distribution",
+    "version": "1.0.0",
+    "packageName": "test_package"
+}

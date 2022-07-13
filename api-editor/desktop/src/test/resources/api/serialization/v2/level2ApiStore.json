@@ -1,0 +1,36 @@
+{
+    "$discriminator": "Api@v2",
+    "distribution": "test-distribution",
+    "version": "1.0.0",
+    "packageName": "test_package",
+    "modules": [
+        {
+            "id": "test_package/test_module",
+            "name": "test_module"
+        }
+    ],
+    "classes": [
+        {
+            "id": "test_package/test_module/TestClass",
+            "name": "TestClass"
+        }
+    ],
+    "functions": [
+        {
+            "id": "test_package/test_module/test_function",
+            "name": "test_function"
+        }
+    ],
+    "parameters": [
+        {
+            "id": "test_package/test_module/test_function/test_parameter",
+            "name": "test_parameter"
+        }
+    ],
+    "results": [
+        {
+            "id": "test_package/test_module/test_function/test_result",
+            "name": "test_result"
+        }
+    ]
+}

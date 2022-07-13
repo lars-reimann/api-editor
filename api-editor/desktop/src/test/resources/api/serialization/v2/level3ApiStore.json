@@ -1,0 +1,66 @@
+{
+    "$discriminator": "Api@v2",
+    "distribution": "test-distribution",
+    "version": "1.0.0",
+    "packageName": "test_package",
+    "modules": [
+        {
+            "id": "test_package/test_module",
+            "name": "test_module",
+            "imports": [],
+            "fromImports": [],
+            "classIds": [],
+            "functionIds": []
+        }
+    ],
+    "classes": [
+        {
+            "id": "test_package/test_module/TestClass",
+            "name": "TestClass",
+            "decorators": [],
+            "superclassIds": [],
+            "documentation": {},
+            "methodIds": []
+        }
+    ],
+    "functions": [
+        {
+            "id": "test_package/test_module/test_function",
+            "name": "test_function",
+            "decorators": [],
+            "documentation": {},
+            "parameterIds": [],
+            "resultIds": []
+        }
+    ],
+    "parameters": [
+        {
+            "id": "test_package/test_module/test_function/test_parameter",
+            "name": "test_parameter",
+            "type": {
+                "$discriminator": "NamedType",
+                "name": "str"
+            },
+            "defaultValue": {
+                "$discriminator": "StringLiteral",
+                "value": "test_default_value"
+            },
+            "assignment": "PositionalOnly",
+            "documentation": {}
+        }
+    ],
+    "results": [
+        {
+            "id": "test_package/test_module/test_function/test_result",
+            "name": "test_result",
+            "type": {
+                "$discriminator": "NamedType",
+                "name": "str"
+            },
+            "documentation": {
+                "type": "str",
+                "description": "test_result description"
+            }
+        }
+    ]
+}
