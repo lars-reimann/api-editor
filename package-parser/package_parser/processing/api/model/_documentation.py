@@ -7,7 +7,6 @@ from dataclasses import dataclass
 @dataclass
 class ClassDocumentation:
     description: str = ""
-    full_docstring: str = ""
 
     @staticmethod
     def from_dict(d: dict) -> ClassDocumentation:
@@ -20,7 +19,6 @@ class ClassDocumentation:
 @dataclass
 class FunctionDocumentation:
     description: str = ""
-    full_docstring: str = ""
 
     @staticmethod
     def from_dict(d: dict) -> FunctionDocumentation:

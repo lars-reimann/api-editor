@@ -10,7 +10,7 @@ from package_parser.processing.api.model import (
     "class_documentation",
     [
         ClassDocumentation(),
-        ClassDocumentation(description="foo", full_docstring="foo bar"),
+        ClassDocumentation(description="foo"),
     ],
 )
 def test_dict_conversion_for_class_documentation(
@@ -26,7 +26,7 @@ def test_dict_conversion_for_class_documentation(
     "function_documentation",
     [
         FunctionDocumentation(),
-        FunctionDocumentation(description="foo", full_docstring="foo bar"),
+        FunctionDocumentation(description="foo"),
     ],
 )
 def test_dict_conversion_for_function_documentation(

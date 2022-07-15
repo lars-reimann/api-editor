@@ -17,6 +17,7 @@ def plaintext_documentation_parser() -> PlaintextDocstringParser:
 
 # language=python
 class_with_documentation = '''
+# noinspection PyUnusedLocal
 class C:
     """
     Lorem ipsum.
@@ -41,13 +42,12 @@ class C:
         (
             class_with_documentation,
             ClassDocumentation(
-                description="",
-                full_docstring="Lorem ipsum.\n\nDolor sit amet.",
+                description="Lorem ipsum.\n\nDolor sit amet.",
             ),
         ),
         (
             class_without_documentation,
-            ClassDocumentation(description="", full_docstring=""),
+            ClassDocumentation(description=""),
         ),
     ],
     ids=[
@@ -94,13 +94,12 @@ def f(p: int):
         (
             function_with_documentation,
             FunctionDocumentation(
-                description="",
-                full_docstring="Lorem ipsum.\n\nDolor sit amet.",
+                description="Lorem ipsum.\n\nDolor sit amet.",
             ),
         ),
         (
             function_without_documentation,
-            FunctionDocumentation(description="", full_docstring=""),
+            FunctionDocumentation(description=""),
         ),
     ],
     ids=[

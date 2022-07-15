@@ -40,12 +40,11 @@ class C:
             class_with_documentation,
             ClassDocumentation(
                 description="Lorem ipsum. Code::\n\n    pass\n\nDolor sit amet.",
-                full_docstring="Lorem ipsum. Code::\n\n    pass\n\nDolor sit amet.",
             ),
         ),
         (
             class_without_documentation,
-            ClassDocumentation(description="", full_docstring=""),
+            ClassDocumentation(description=""),
         ),
     ],
     ids=[
@@ -91,13 +90,12 @@ def f():
         (
             function_with_documentation,
             FunctionDocumentation(
-                description="Lorem ipsum. Code::\n\n    pass\n\nDolor sit amet.",
-                full_docstring="Lorem ipsum. Code::\n\n    pass\n\nDolor sit amet.",
+                description="Lorem ipsum. Code::\n\n    pass\n\nDolor sit amet."
             ),
         ),
         (
             function_without_documentation,
-            FunctionDocumentation(description="", full_docstring=""),
+            FunctionDocumentation(description=""),
         ),
     ],
     ids=[

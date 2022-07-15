@@ -203,8 +203,7 @@ class Class:
             json.get("is_public", True),
             json.get("reexported_by", []),
             ClassDocumentation(
-                description=json.get("description", ""),
-                full_docstring=json.get("docstring", ""),
+                description=json.get("description", "")
             ),
         )
 
@@ -249,8 +248,7 @@ class Class:
             "methods": self.methods,
             "is_public": self.is_public,
             "reexported_by": self.reexported_by,
-            "description": self.documentation.description,
-            "docstring": self.documentation.full_docstring,
+            "description": self.documentation.description
         }
 
 
@@ -279,8 +277,7 @@ class Function:
             json.get("is_public", True),
             json.get("reexported_by", []),
             FunctionDocumentation(
-                description=json.get("description", ""),
-                full_docstring=json.get("docstring", ""),
+                description=json.get("description", "")
             ),
         )
 
@@ -298,8 +295,7 @@ class Function:
             "results": [result.to_json() for result in self.results],
             "is_public": self.is_public,
             "reexported_by": self.reexported_by,
-            "description": self.documentation.description,
-            "docstring": self.documentation.full_docstring,
+            "description": self.documentation.description
         }
 
 

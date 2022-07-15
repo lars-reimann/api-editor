@@ -2,15 +2,15 @@ import re
 from typing import Optional, Tuple
 
 import astroid
-import numpydoc.docscrape
+from docstring_parser import parse as parse_docstring, DocstringStyle, Docstring, DocstringParam
 from numpydoc.docscrape import NumpyDocString
+
 from package_parser.processing.api.model import (
     ClassDocumentation,
     FunctionDocumentation,
     ParameterAssignment,
     ParameterDocumentation,
 )
-
 from ._AbstractDocstringParser import AbstractDocstringParser
 from ._get_full_docstring import get_full_docstring
 
@@ -31,10 +31,13 @@ class NumpyDocParser(AbstractDocstringParser):
         self, class_node: astroid.ClassDef
     ) -> ClassDocumentation:
         docstring = get_full_docstring(class_node)
+        docstring_obj = parse_docstring(docstring, style=DocstringStyle.NUMPYDOC)
+
+        print(docstring_obj.short_description)
+        print(docstring_obj.long_description)
 
         return ClassDocumentation(
-            description=_get_description(NumpyDocString(docstring)),
-            full_docstring=docstring,
+            description=_get_description(docstring_obj)
         )
 
     def get_function_documentation(
@@ -45,8 +48,7 @@ class NumpyDocParser(AbstractDocstringParser):
         return FunctionDocumentation(
             description=_get_description(
                 self.__get_cached_function_numpydoc_string(function_node, docstring)
-            ),
-            full_docstring=docstring,
+            )
         )
 
     def get_parameter_documentation(
@@ -68,9 +70,7 @@ class NumpyDocParser(AbstractDocstringParser):
         function_numpydoc = self.__get_cached_function_numpydoc_string(
             function_node, docstring
         )
-        all_parameters_numpydoc: list[
-            numpydoc.docscrape.Parameter
-        ] = function_numpydoc.get("Parameters", [])
+        all_parameters_numpydoc: list[DocstringParam] = function_numpydoc.params
         matching_parameters_numpydoc = [
             it
             for it in all_parameters_numpydoc
@@ -88,13 +88,13 @@ class NumpyDocParser(AbstractDocstringParser):
             type=type_,
             default_value=default_value,
             description="\n".join(
-                [line.rstrip() for line in last_parameter_numpydoc.desc]
+                [line.rstrip() for line in last_parameter_numpydoc.description]
             ),
         )
 
     def __get_cached_function_numpydoc_string(
         self, function_node: astroid.FunctionDef, docstring: str
-    ) -> NumpyDocString:
+    ) -> Docstring:
         """
         Returns the NumpyDocString for the given function node. It is only recomputed when the function node differs
         from the previous one that was passed to this function. This avoids reparsing the docstring for the function
@@ -106,29 +106,31 @@ class NumpyDocParser(AbstractDocstringParser):
 
         if self.__cached_function_node is not function_node:
             self.__cached_function_node = function_node
-            self.__cached_numpydoc_string = NumpyDocString(docstring)
+            self.__cached_numpydoc_string = parse_docstring(docstring)
 
         return self.__cached_numpydoc_string
 
 
-def _get_description(numpydoc_string: NumpyDocString) -> str:
+def _get_description(numpydoc_string: Docstring) -> str:
     """
     Returns the concatenated summary and extended summary parts of the given docstring or an empty string if these parts
     are blank.
     """
 
-    summary: list[str] = numpydoc_string.get("Summary", [])
-    extended_summary: list[str] = numpydoc_string.get("Extended Summary", [])
+    summary: str = numpydoc_string.short_description
+    extended_summary: str = numpydoc_string.long_description
+    print(summary)
+    print(extended_summary)
 
     result = ""
-    result += "\n".join([line.rstrip() for line in summary])
+    result += summary.rstrip()
     result += "\n\n"
-    result += "\n".join([line.rstrip() for line in extended_summary])
+    result += extended_summary.rstrip()
     return result.strip()
 
 
 def _is_matching_parameter_numpydoc(
-    parameter_numpydoc: numpydoc.docscrape.Parameter,
+    parameter_numpydoc: DocstringParam,
     parameter_name: str,
     parameter_assigned_by: ParameterAssignment,
 ) -> bool:
@@ -146,21 +148,23 @@ def _is_matching_parameter_numpydoc(
     # Numpydoc allows multiple parameters to be documented at once. See
     # https://numpydoc.readthedocs.io/en/latest/format.html#parameters for more information.
     return any(
-        name.strip() == lookup_name for name in parameter_numpydoc.name.split(",")
+        name.strip() == lookup_name for name in parameter_numpydoc.arg_name.split(",")
     )
 
 
 def _get_type_and_default_value(
-    parameter_numpydoc: numpydoc.docscrape.Parameter,
+    parameter_numpydoc: DocstringParam,
 ) -> Tuple[str, str]:
     """
     Returns the type and default value for the given NumpyDoc.
     """
 
-    type_ = parameter_numpydoc.type
-    parts = re.split(r",\s*optional|,\s*default\s*[:=]?", type_)
+    # type_ = parameter_numpydoc.type_name
+    # parts = re.split(r",\s*optional|,\s*default\s*[:=]?", type_)
+    #
+    # if len(parts) != 2:
+    #     return type_.strip(), ""
 
-    if len(parts) != 2:
-        return type_.strip(), ""
+    # return parts[0].strip(), parts[1].strip()
 
-    return parts[0].strip(), parts[1].strip()
+    return parameter_numpydoc.type_name, parameter_numpydoc.default
