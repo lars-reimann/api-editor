@@ -6,6 +6,7 @@ from package_parser.cli._run_annotations import _run_annotations
 from package_parser.cli._run_api import _run_api_command
 from package_parser.cli._run_usages import _run_usages_command
 from package_parser.cli._shared_constants import _API_KEY, _USAGES_KEY
+from package_parser.processing.api.documentation_parsing import DocstringStyle
 
 
 def _run_all_command(
@@ -13,6 +14,7 @@ def _run_all_command(
     src_dir_path: Path,
     client_dir_path: Path,
     out_dir_path: Path,
+    docstring_style: DocstringStyle,
     n_processes: int,
     batch_size: int,
 ) -> None:

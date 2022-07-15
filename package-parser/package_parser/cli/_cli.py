@@ -9,6 +9,7 @@ from package_parser.cli._run_all import _run_all_command
 from package_parser.cli._run_annotations import _run_annotations
 from package_parser.cli._run_api import _run_api_command
 from package_parser.cli._run_usages import _run_usages_command
+from package_parser.processing.api.documentation_parsing import DocstringStyle
 
 _API_COMMAND = "api"
 _USAGES_COMMAND = "usages"
@@ -22,7 +23,7 @@ def cli() -> None:
         logging.basicConfig(level=logging.INFO)
 
     if args.command == _API_COMMAND:
-        _run_api_command(args.package, args.src, args.out)
+        _run_api_command(args.package, args.src, args.out, args.docstyle)
     elif args.command == _USAGES_COMMAND:
         _run_usages_command(
             args.package, args.client, args.out, args.processes, args.batchsize
@@ -35,6 +36,7 @@ def cli() -> None:
             args.src,
             args.client,
             args.out,
+            args.docstyle,
             args.processes,
             args.batchsize,
         )
@@ -69,14 +71,22 @@ def _add_api_subparser(subparsers: _SubParsersAction) -> None:
         "-s",
         "--src",
         help="Directory containing the Python code of the package. If this is omitted, we try to locate the package "
-        "with the given name in the current Python interpreter.",
+             "with the given name in the current Python interpreter.",
         type=Path,
         required=False,
         default=None,
     )
     api_parser.add_argument(
         "-o", "--out", help="Output directory.", type=Path, required=True
-    )
+    ),
+    api_parser.add_argument(
+        "--docstyle",
+        help="The docstring style.",
+        type=DocstringStyle.from_string,
+        choices=list(DocstringStyle),
+        required=False,
+        default=DocstringStyle.AUTO,
+    ),
 
 
 def _add_usages_subparser(subparsers: _SubParsersAction) -> None:
@@ -155,7 +165,7 @@ def _add_all_subparser(subparsers: _SubParsersAction) -> None:
         "-s",
         "--src",
         help="Directory containing the Python code of the package. If this is omitted, we try to locate the package "
-        "with the given name in the current Python interpreter.",
+             "with the given name in the current Python interpreter.",
         type=Path,
         required=False,
         default=None,
@@ -169,7 +179,15 @@ def _add_all_subparser(subparsers: _SubParsersAction) -> None:
     )
     all_parser.add_argument(
         "-o", "--out", help="Output directory.", type=Path, required=True
-    )
+    ),
+    all_parser.add_argument(
+        "--docstyle",
+        help="The docstring style.",
+        type=DocstringStyle.from_string,
+        choices=list(DocstringStyle),
+        required=False,
+        default=DocstringStyle.AUTO.name,
+    ),
     all_parser.add_argument(
         "--processes",
         help="How many processes should be spawned during processing.",
