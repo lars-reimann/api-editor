@@ -20,7 +20,7 @@ def _run_all_command(
 ) -> None:
     out_file_annotations = out_dir_path.joinpath("annotations.json")
     results = _run_in_parallel(
-        partial(_run_api_command, package, src_dir_path, out_dir_path),
+        partial(_run_api_command, package, src_dir_path, out_dir_path, docstring_style),
         partial(
             _run_usages_command,
             package,

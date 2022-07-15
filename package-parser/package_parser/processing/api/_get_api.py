@@ -3,9 +3,9 @@ from pathlib import Path
 from typing import Optional
 
 import astroid
+
 from package_parser.processing.api.model import API
 from package_parser.utils import ASTWalker
-
 from ._ast_visitor import _AstVisitor
 from ._file_filters import _is_test_file
 from ._package_metadata import (
@@ -14,10 +14,14 @@ from ._package_metadata import (
     package_files,
     package_root,
 )
-from .docstring_parsing import NumpyDocParser
+from .docstring_parsing import DocstringStyle, create_docstring_parser
 
 
-def get_api(package_name: str, root: Optional[Path] = None) -> API:
+def get_api(
+    package_name: str,
+    root: Optional[Path] = None,
+    docstring_style: DocstringStyle = DocstringStyle.AUTO
+) -> API:
     if root is None:
         root = package_root(package_name)
     dist = distribution(package_name) or ""
@@ -25,7 +29,7 @@ def get_api(package_name: str, root: Optional[Path] = None) -> API:
     files = package_files(root)
 
     api = API(dist, package_name, dist_version)
-    docstring_parser = NumpyDocParser()
+    docstring_parser = create_docstring_parser(docstring_style)
     callable_visitor = _AstVisitor(docstring_parser, api)
     walker = ASTWalker(callable_visitor)
 

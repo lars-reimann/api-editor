@@ -18,7 +18,7 @@ def _run_api_command(
     docstring_style: DocstringStyle,
     result_dict: Optional[dict] = None,
 ) -> None:
-    api = get_api(package, src_dir_path)
+    api = get_api(package, src_dir_path, docstring_style)
     api_dependencies = get_dependencies(api)
 
     api_file_path = _write_api_file(api, out_dir_path)
