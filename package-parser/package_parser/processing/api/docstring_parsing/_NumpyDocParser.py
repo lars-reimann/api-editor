@@ -33,9 +33,6 @@ class NumpyDocParser(AbstractDocstringParser):
         docstring = get_full_docstring(class_node)
         docstring_obj = parse_docstring(docstring, style=DocstringStyle.NUMPYDOC)
 
-        print(docstring_obj.short_description)
-        print(docstring_obj.long_description)
-
         return ClassDocumentation(
             description=_get_description(docstring_obj)
         )
@@ -87,9 +84,7 @@ class NumpyDocParser(AbstractDocstringParser):
         return ParameterDocumentation(
             type=type_,
             default_value=default_value,
-            description="\n".join(
-                [line.rstrip() for line in last_parameter_numpydoc.description]
-            ),
+            description=last_parameter_numpydoc.description,
         )
 
     def __get_cached_function_numpydoc_string(
@@ -113,14 +108,12 @@ class NumpyDocParser(AbstractDocstringParser):
 
 def _get_description(numpydoc_string: Docstring) -> str:
     """
-    Returns the concatenated summary and extended summary parts of the given docstring or an empty string if these parts
+    Returns the concatenated short and long description of the given docstring or an empty string if these parts
     are blank.
     """
 
-    summary: str = numpydoc_string.short_description
-    extended_summary: str = numpydoc_string.long_description
-    print(summary)
-    print(extended_summary)
+    summary: str = numpydoc_string.short_description or ""
+    extended_summary: str = numpydoc_string.long_description or ""
 
     result = ""
     result += summary.rstrip()
@@ -159,12 +152,10 @@ def _get_type_and_default_value(
     Returns the type and default value for the given NumpyDoc.
     """
 
-    # type_ = parameter_numpydoc.type_name
-    # parts = re.split(r",\s*optional|,\s*default\s*[:=]?", type_)
-    #
-    # if len(parts) != 2:
-    #     return type_.strip(), ""
+    type_name = parameter_numpydoc.type_name or ""
+    parts = re.split(r",\s*optional|,\s*default\s*[:=]?", type_name)
 
-    # return parts[0].strip(), parts[1].strip()
+    if len(parts) != 2:
+        return type_name.strip(), parameter_numpydoc.default or ""
 
-    return parameter_numpydoc.type_name, parameter_numpydoc.default
+    return parts[0].strip(), parts[1].strip()

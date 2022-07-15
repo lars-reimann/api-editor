@@ -39,7 +39,7 @@ class C:
         (
             class_with_documentation,
             ClassDocumentation(
-                description="Lorem ipsum. Code::\n\n    pass\n\nDolor sit amet.",
+                description="Lorem ipsum. Code::\n\npass\n\nDolor sit amet.",
             ),
         ),
         (
@@ -90,7 +90,7 @@ def f():
         (
             function_with_documentation,
             FunctionDocumentation(
-                description="Lorem ipsum. Code::\n\n    pass\n\nDolor sit amet."
+                description="Lorem ipsum. Code::\n\npass\n\nDolor sit amet."
             ),
         ),
         (
@@ -148,7 +148,7 @@ def f():
     Parameters
     ----------
     no_type_no_default
-        foo: no_type_no_default. Code::
+        Code::
 
             pass
     type_no_default : int
@@ -203,7 +203,7 @@ def f():
             ParameterDocumentation(
                 type="",
                 default_value="",
-                description="foo: no_type_no_default. Code::\n\n    pass",
+                description="Code::\n\n    pass",
             ),
         ),
         (
