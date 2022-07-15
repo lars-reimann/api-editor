@@ -7,7 +7,7 @@ from package_parser.processing.api.model import (
 )
 
 from ._AbstractDocstringParser import AbstractDocstringParser
-from ._get_full_docstring import get_full_docstring
+from ._helpers import get_full_docstring
 
 
 class PlaintextDocstringParser(AbstractDocstringParser):

@@ -1,6 +1,7 @@
 from ._AbstractDocstringParser import AbstractDocstringParser
 from ._create_docstring_parser import create_docstring_parser
 from ._DocstringStyle import DocstringStyle
+from ._EpydocParser import EpydocParser
 from ._PlaintextDocstringParser import PlaintextDocstringParser
-from ._get_full_docstring import get_full_docstring
+from ._helpers import get_description, get_full_docstring
 from ._NumpyDocParser import NumpyDocParser
