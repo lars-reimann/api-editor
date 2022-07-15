@@ -9,7 +9,7 @@ from package_parser.cli._run_all import _run_all_command
 from package_parser.cli._run_annotations import _run_annotations
 from package_parser.cli._run_api import _run_api_command
 from package_parser.cli._run_usages import _run_usages_command
-from package_parser.processing.api.documentation_parsing import DocstringStyle
+from package_parser.processing.api.docstring_parsing import DocstringStyle
 
 _API_COMMAND = "api"
 _USAGES_COMMAND = "usages"

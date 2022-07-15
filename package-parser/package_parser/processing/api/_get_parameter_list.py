@@ -1,14 +1,14 @@
 from typing import Optional
 
 import astroid
-from package_parser.processing.api.documentation_parsing import (
-    AbstractDocumentationParser,
+from package_parser.processing.api.docstring_parsing import (
+    AbstractDocstringParser,
 )
 from package_parser.processing.api.model import Parameter, ParameterAssignment
 
 
 def get_parameter_list(
-    documentation_parser: AbstractDocumentationParser,
+    docstring_parser: AbstractDocstringParser,
     function_node: astroid.FunctionDef,
     function_id: str,
     function_qname: str,
@@ -30,7 +30,7 @@ def get_parameter_list(
                 ),
                 assigned_by=parameter_assigned_by,
                 is_public=function_is_public,
-                documentation=documentation_parser.get_parameter_documentation(
+                documentation=docstring_parser.get_parameter_documentation(
                     function_node, parameter_name, parameter_assigned_by
                 ),
             )

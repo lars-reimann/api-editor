@@ -1,8 +1,7 @@
 import astroid
 import pytest
-from package_parser.processing.api.documentation_parsing import (
-    PlaintextDocumentationParser,
-)
+
+from package_parser.processing.api.docstring_parsing import PlaintextDocstringParser
 from package_parser.processing.api.model import (
     ClassDocumentation,
     FunctionDocumentation,
@@ -12,8 +11,8 @@ from package_parser.processing.api.model import (
 
 
 @pytest.fixture
-def plaintext_documentation_parser() -> PlaintextDocumentationParser:
-    return PlaintextDocumentationParser()
+def plaintext_documentation_parser() -> PlaintextDocstringParser:
+    return PlaintextDocstringParser()
 
 
 # language=python
@@ -57,7 +56,7 @@ class C:
     ],
 )
 def test_get_class_documentation(
-    plaintext_documentation_parser: PlaintextDocumentationParser,
+    plaintext_documentation_parser: PlaintextDocstringParser,
     python_code: str,
     expected_class_documentation: ClassDocumentation,
 ):
@@ -110,7 +109,7 @@ def f(p: int):
     ],
 )
 def test_get_function_documentation(
-    plaintext_documentation_parser: PlaintextDocumentationParser,
+    plaintext_documentation_parser: PlaintextDocstringParser,
     python_code: str,
     expected_function_documentation: FunctionDocumentation,
 ):
@@ -151,7 +150,7 @@ def test_get_function_documentation(
     ],
 )
 def test_get_parameter_documentation(
-    plaintext_documentation_parser: PlaintextDocumentationParser,
+    plaintext_documentation_parser: PlaintextDocstringParser,
     python_code: str,
     parameter_name: str,
     expected_parameter_documentation: ParameterDocumentation,

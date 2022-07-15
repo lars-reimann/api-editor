@@ -6,11 +6,11 @@ from package_parser.processing.api.model import (
     ParameterDocumentation,
 )
 
-from ._AbstractDocumentationParser import AbstractDocumentationParser
+from ._AbstractDocstringParser import AbstractDocstringParser
 from ._get_full_docstring import get_full_docstring
 
 
-class PlaintextDocumentationParser(AbstractDocumentationParser):
+class PlaintextDocstringParser(AbstractDocstringParser):
     """
     Parses documentation in any format. Should not be used if there is another parser for the specific format.
     """

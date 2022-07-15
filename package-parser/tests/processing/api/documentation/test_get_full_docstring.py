@@ -1,6 +1,6 @@
 import astroid
 import pytest
-from package_parser.processing.api.documentation_parsing import get_full_docstring
+from package_parser.processing.api.docstring_parsing import get_full_docstring
 
 # language=python
 class_with_multi_line_documentation = '''

@@ -11,7 +11,7 @@ from package_parser.processing.api.model import (
 )
 
 
-class AbstractDocumentationParser(ABC):
+class AbstractDocstringParser(ABC):
     @abstractmethod
     def get_class_documentation(
         self, class_node: astroid.ClassDef

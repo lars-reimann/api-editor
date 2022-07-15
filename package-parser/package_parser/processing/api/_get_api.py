@@ -14,7 +14,7 @@ from ._package_metadata import (
     package_files,
     package_root,
 )
-from .documentation_parsing import NumpyDocParser
+from .docstring_parsing import NumpyDocParser
 
 
 def get_api(package_name: str, root: Optional[Path] = None) -> API:
@@ -25,8 +25,8 @@ def get_api(package_name: str, root: Optional[Path] = None) -> API:
     files = package_files(root)
 
     api = API(dist, package_name, dist_version)
-    documentation_parser = NumpyDocParser()
-    callable_visitor = _AstVisitor(documentation_parser, api)
+    docstring_parser = NumpyDocParser()
+    callable_visitor = _AstVisitor(docstring_parser, api)
     walker = ASTWalker(callable_visitor)
 
     for file in files:

@@ -6,7 +6,7 @@ from package_parser.cli._run_annotations import _run_annotations
 from package_parser.cli._run_api import _run_api_command
 from package_parser.cli._run_usages import _run_usages_command
 from package_parser.cli._shared_constants import _API_KEY, _USAGES_KEY
-from package_parser.processing.api.documentation_parsing import DocstringStyle
+from package_parser.processing.api.docstring_parsing import DocstringStyle
 
 
 def _run_all_command(

@@ -1,6 +1,6 @@
 import astroid
 import pytest
-from package_parser.processing.api.documentation_parsing import NumpyDocParser
+from package_parser.processing.api.docstring_parsing import NumpyDocParser
 from package_parser.processing.api.model import (
     ClassDocumentation,
     FunctionDocumentation,

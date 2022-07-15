@@ -11,11 +11,11 @@ from package_parser.processing.api.model import (
     ParameterDocumentation,
 )
 
-from ._AbstractDocumentationParser import AbstractDocumentationParser
+from ._AbstractDocstringParser import AbstractDocstringParser
 from ._get_full_docstring import get_full_docstring
 
 
-class NumpyDocParser(AbstractDocumentationParser):
+class NumpyDocParser(AbstractDocstringParser):
     """
     Parses documentation in the NumpyDoc format. See https://numpydoc.readthedocs.io/en/latest/format.html for more
     information.
