@@ -10,7 +10,7 @@ from ._AbstractDocumentationParser import AbstractDocumentationParser
 from ._get_full_docstring import get_full_docstring
 
 
-class DefaultDocumentationParser(AbstractDocumentationParser):
+class PlaintextDocumentationParser(AbstractDocumentationParser):
     """
     Parses documentation in any format. Should not be used if there is another parser for the specific format.
     """

@@ -1,7 +1,7 @@
 import astroid
 import pytest
 from package_parser.processing.api.documentation_parsing import (
-    DefaultDocumentationParser,
+    PlaintextDocumentationParser,
 )
 from package_parser.processing.api.model import (
     ClassDocumentation,
@@ -12,8 +12,8 @@ from package_parser.processing.api.model import (
 
 
 @pytest.fixture
-def default_documentation_parser() -> DefaultDocumentationParser:
-    return DefaultDocumentationParser()
+def plaintext_documentation_parser() -> PlaintextDocumentationParser:
+    return PlaintextDocumentationParser()
 
 
 # language=python
@@ -57,7 +57,7 @@ class C:
     ],
 )
 def test_get_class_documentation(
-    default_documentation_parser: DefaultDocumentationParser,
+    plaintext_documentation_parser: PlaintextDocumentationParser,
     python_code: str,
     expected_class_documentation: ClassDocumentation,
 ):
@@ -65,7 +65,7 @@ def test_get_class_documentation(
 
     assert isinstance(node, astroid.ClassDef)
     assert (
-        default_documentation_parser.get_class_documentation(node)
+        plaintext_documentation_parser.get_class_documentation(node)
         == expected_class_documentation
     )
 
@@ -110,7 +110,7 @@ def f(p: int):
     ],
 )
 def test_get_function_documentation(
-    default_documentation_parser: DefaultDocumentationParser,
+    plaintext_documentation_parser: PlaintextDocumentationParser,
     python_code: str,
     expected_function_documentation: FunctionDocumentation,
 ):
@@ -118,7 +118,7 @@ def test_get_function_documentation(
 
     assert isinstance(node, astroid.FunctionDef)
     assert (
-        default_documentation_parser.get_function_documentation(node)
+        plaintext_documentation_parser.get_function_documentation(node)
         == expected_function_documentation
     )
 
@@ -151,7 +151,7 @@ def test_get_function_documentation(
     ],
 )
 def test_get_parameter_documentation(
-    default_documentation_parser: DefaultDocumentationParser,
+    plaintext_documentation_parser: PlaintextDocumentationParser,
     python_code: str,
     parameter_name: str,
     expected_parameter_documentation: ParameterDocumentation,
@@ -159,7 +159,7 @@ def test_get_parameter_documentation(
     node = astroid.extract_node(python_code)
     assert isinstance(node, astroid.FunctionDef)
     assert (
-        default_documentation_parser.get_parameter_documentation(
+        plaintext_documentation_parser.get_parameter_documentation(
             node, parameter_name, ParameterAssignment.POSITION_OR_NAME
         )
         == expected_parameter_documentation

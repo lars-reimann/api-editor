@@ -2,7 +2,7 @@ import astroid
 import pytest
 from package_parser.processing.api import get_parameter_list
 from package_parser.processing.api.documentation_parsing import (
-    DefaultDocumentationParser,
+    PlaintextDocumentationParser,
 )
 from package_parser.processing.api.model import (
     Parameter,
@@ -124,7 +124,7 @@ def test_get_parameter_list_on_global_functions(
 
     actual_parameter_list = [
         it.to_json()
-        for it in get_parameter_list(DefaultDocumentationParser(), node, "f", "f", True)
+        for it in get_parameter_list(PlaintextDocumentationParser(), node, "f", "f", True)
     ]
 
     expected_parameter_list = [it.to_json() for it in expected_parameter_list]
@@ -261,7 +261,7 @@ def test_get_parameter_list_on_method(python_code: str, expected_parameter_list:
     actual_parameter_list = [
         it.to_json()
         for it in get_parameter_list(
-            DefaultDocumentationParser(), node, "C/f", "C.f", True
+            PlaintextDocumentationParser(), node, "C/f", "C.f", True
         )
     ]
 
